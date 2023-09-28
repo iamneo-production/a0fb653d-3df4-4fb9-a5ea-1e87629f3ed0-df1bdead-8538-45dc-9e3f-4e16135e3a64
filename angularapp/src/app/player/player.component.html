@@ -1,0 +1,51 @@
+<ul>
+  <li *ngFor="let player of players" id="list">
+    {{ player.name }} (Age: {{ player.age }}  Category: {{ player.category }}  Bidding Price: {{ player.biddingPrice}})
+    <button (click)="onEditPlayer(player)">Edit</button>
+    <button (click)="onDeletePlayer(player.id)">Delete</button>
+  </li>
+</ul>
+
+<div>
+  <h2>Create New Player</h2>
+  <form (ngSubmit)="createPlayer()">
+    <label for="playerName">Player Name:</label>
+    <input type="text" id="playerName" [(ngModel)]="newPlayer.name" name="playerName" required>
+
+    <label for="playerAge">Player Age:</label>
+    <input type="number" id="playerAge" [(ngModel)]="newPlayer.age" name="playerAge" required>
+
+    <label for="PlayerCategory">Player Category:</label>
+<input type="text" id="PlayerCategory" [(ngModel)]="newPlayer.category" name="Playercategory" required>
+
+<label for="playerBiddingPrice">Bidding Price:</label>
+<input type="number" id="playerBiddingPrice" [(ngModel)]="newPlayer.biddingPrice" name="playerBiddingPrice" required>
+<div id="status">Bidding Price Status: {{ biddingPriceStatus }}</div> <!-- Display the bidding price status -->
+
+    <!-- Other player fields (category, bidding price, etc.) can be added here -->
+
+    <button type="submit">Create</button>
+  </form>
+</div>
+
+
+<div *ngIf="editedPlayer">
+  <h2>Edit Player</h2>
+  <form (ngSubmit)="onSaveEditedPlayer()">
+    <label for="editPlayerName">Player Name:</label>
+    <input type="text" id="editPlayerName" [(ngModel)]="editedPlayer.name" name="editPlayerName" required>
+
+    <label for="editPlayerAge">Player Age:</label>
+    <input type="number" id="editPlayerAge" [(ngModel)]="editedPlayer.age" name="editPlayerAge" required>
+
+    <label for="editPlayerCategory">Player Category:</label>
+    <input type="text" id="editPlayerCategory" [(ngModel)]="editedPlayer.category" name="editPlayercategory" required>
+
+    <label for="playerBiddingPrice">Bidding Price:</label>
+    <input type="number" id="playerBiddingPrice" [(ngModel)]="editedPlayer.biddingPrice" name="playerBiddingPrice" required>
+
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="onCancelEditPlayer()">Cancel</button>
+  </form>
+</div>

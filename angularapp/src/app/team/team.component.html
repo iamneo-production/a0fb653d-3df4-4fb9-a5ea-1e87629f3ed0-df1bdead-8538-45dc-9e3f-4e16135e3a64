@@ -1,0 +1,38 @@
+<ul>
+  <li *ngFor="let team of teams" id="list">
+    {{ team.name }} (Budget: {{ team.maximumBudget }})
+    <button (click)="onEditTeam(team)">Edit</button>
+    <button (click)="onDeleteTeam(team.id)">Delete</button>
+  </li>
+</ul>
+
+<div>
+  <h2>Create New Team</h2>
+  <form (ngSubmit)="createTeam()" #createTeamForm="ngForm" novalidate>
+    <label for="teamName">Team Name:</label>
+    <input type="text" id="teamName" [(ngModel)]="newTeam.name" name="teamName" [ngModelOptions]="{standalone: true}" required #teamnameNgModel="ngModel" >
+    <!-- <div *ngIf="teamnameNgModel.invalid && (teamnameNgModel.dirty || teamnameNgModel.touched)"
+       class="error-message">TeamName is required</div> -->
+
+    <label for="maximumBudget">Maximum Budget:</label>
+    <input type="number" id="maximumBudget" [(ngModel)]="newTeam.maximumBudget" name="maximumBudget" required>
+    <div id="status">MaximumBudget Status: {{ maxBidStatus }}</div> <!-- Display the bidding price status -->
+
+    <button id="createTeam" type="submit" [disabled]="createTeamForm.invalid">Create</button>
+  </form>
+</div>
+
+<!-- Edit Team Form -->
+<div *ngIf="editedTeam">
+  <h2>Edit Team</h2>
+  <form (ngSubmit)="onSaveEditedTeam()">
+    <label for="editTeamName">Team Name:</label>
+    <input type="text" id="editTeamName" [(ngModel)]="editedTeam.name" name="editTeamName" required>
+
+    <label for="editMaximumBudget">Maximum Budget:</label>
+    <input type="number" id="editMaximumBudget" [(ngModel)]="editedTeam.maximumBudget" name="editMaximumBudget" required>
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="onCancelEditTeam()">Cancel</button>
+  </form>
+</div>
